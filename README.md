@@ -24,9 +24,11 @@ Checksums matched!
 Now using node v12.16.1 (npm v6.13.4)
 ```
 
-### Clone the application
+### Getting the project locally
 ```sh
+git clone git@github.com:hhimanshu/web-push-notifications.git
 
+cd web-push-notifications
 ```
 
 ### Start the Client App
@@ -35,6 +37,7 @@ Install the dependencies
 npm install
 ```
 
+Once installed, you can start the client app with the following command
 ```sh
 npm start
 ```
