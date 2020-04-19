@@ -43,3 +43,6 @@ npm start
 ```
 
 This will start the client app at [localhost:9999](http://localhost:9999).
+
+### How to test client notification subscription workflow
+Use [Notification Generator](https://serviceworke.rs/push-get-payload_demo.html) demo to test the client notification subscription workflow
