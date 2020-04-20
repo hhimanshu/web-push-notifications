@@ -1,11 +1,24 @@
 const client = (() => {
+    let serviceWorkerRegObj = undefined;
 
     const checkNotificationSupport = () => {
-        return Promise.reject("notification support not checked.")
+        if(!('Notification' in window)) {
+            return Promise.reject("The browser doesn't support notifications.")
+        }
+        console.log("The browser support Notifications!")
+        return Promise.resolve("Ok!")
     }
 
     const registerServiceWorker = () => {
-        return Promise.reject("service worker not registerd yet")
+        if(!('serviceWorker') in navigator) {
+            return Promise.reject("ServiceWorker support is not available.")
+        }
+
+        return navigator.serviceWorker.register('service-worker.js')
+        .then(regObj => {
+            console.log("service worker is registered successfully!");
+            serviceWorkerRegObj = regObj;
+        })
     }
 
     checkNotificationSupport()
