@@ -25,3 +25,26 @@ h1 {
     padding: 1em;
     background-color: #faf4f4;
 }
+
+.buttons-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 2em;
+}
+
+button {
+    margin: 1em;
+    height: 50px;
+    font-family: 'Lato', sans-serif;
+}
+
+#btn-notify {
+    background-color: #844685;
+    color: #ffffff;
+    padding: 1em;
+    cursor: pointer;
+    font-size: 1em;
+    border-radius: 10px;
+    /* Hide by Default. Only enabled if ServiceWorker is available */
+    display: none;
+}
