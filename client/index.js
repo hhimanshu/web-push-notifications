@@ -8,8 +8,22 @@ const client = (() => {
     }
 
     const showNotification = () => {
+        const simpleTextNotification = reg => reg.showNotification("My First Notification")
+
+        const customizedNotification = reg => {
+            const options = {
+                body: 'This is an important body!',
+                icon: "imgs/notification.png",
+                actions: [
+                    {action: "search", title: "Try Searching!"},
+                    {action: "close", title: "Forget it!"},
+                ],
+            }
+            reg.showNotification('Second Notification', options)
+        }
+        
         navigator.serviceWorker.getRegistration()
-        .then(registration => registration.showNotification("My First Notification"));
+        .then(registration => customizedNotification(registration));
     }
 
     const checkNotificationSupport = () => {
