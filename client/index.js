@@ -18,6 +18,10 @@ const client = (() => {
                     {action: "search", title: "Try Searching!"},
                     {action: "close", title: "Forget it!"},
                 ],
+                data: {
+                    notificationTime: Date.now(),
+                    githubUser: "hhimanshu"
+                }
             }
             reg.showNotification('Second Notification', options)
         }
