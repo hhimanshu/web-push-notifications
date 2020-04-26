@@ -1,4 +1,5 @@
-html, body {
+html,
+body {
     margin: 0;
     padding: 0;
     font-family: 'Lato', sans-serif;
@@ -36,6 +37,10 @@ button {
     margin: 1em;
     height: 50px;
     font-family: 'Lato', sans-serif;
+    padding: 1em;
+    cursor: pointer;
+    font-size: 1em;
+    border-radius: 10px;
 }
 
 #btn-notify {
@@ -47,4 +52,8 @@ button {
     border-radius: 10px;
     /* Hide by Default. Only enabled if ServiceWorker is available */
     display: none;
+}
+
+#btn-push {
+    background-color: #efb1ff;
 }
