@@ -14,12 +14,14 @@ self.addEventListener('notificationclick', event => {
 })
 
 self.addEventListener('push', event => {
-    const data = event.data.text();
+    const transaction = JSON.parse(event.data.text());
     const options = {
-        body: data
+        body: transaction.business
     }
 
+    const transactionType = transaction.type === "deposit" ? '+' : '-';
+
     event.waitUntil(
-        self.registration.showNotification("Server Push", options)
+        self.registration.showNotification(`${transactionType} ` + transaction.amount, options)
     )
 })

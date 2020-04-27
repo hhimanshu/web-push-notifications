@@ -12,6 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1",
+    "faker": "^4.1.0",
     "web-push": "^3.4.3"
   },
   "devDependencies": {}

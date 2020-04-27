@@ -1,4 +1,5 @@
 const webPush = require('web-push');
+const faker = require('faker');
 
 const pushSubscription = {
     "endpoint": "https://fcm.googleapis.com/fcm/send/cgpM2kf-o9I:APA91bGsFxoaA-YvOzeMUtmn3BIiWotLkpU3cwZNXOOBNGUJ9e1U6IIHd-oLnsgxFnW2GH6UnBeiXflxPUXmkBl_kk_vkL-oUHMFAOEwKUUsA4Zr9x8x6G9Weu9OnGIW94lJw5YEHYDc",
@@ -22,9 +23,10 @@ const options = {
 };
 
 const notify = () => {
+    const transaction = faker.helpers.createTransaction()
     webPush.sendNotification(
             pushSubscription,
-            "Hello from Server!",
+            JSON.stringify(transaction),
             options
         )
         .then(() => console.log(`subscribers notified.`))
