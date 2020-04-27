@@ -98,6 +98,16 @@ const client = (() => {
             return outputArray;
         }
 
+        const subscribeWithServer = (subscription) => {
+            return fetch('http://localhost:3000/addSubscriber', {
+                method: 'POST',
+                body: JSON.stringify(subscription),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+        }
+
         const subscribeUser = () => {
             const appServerPublicKey = "BBjDHF8cFoJznds83RrbZByg-UQCxWTNb9afVNjxjbpIsj2CaJyKDrndm9GwHk9Tbargfzt83gYprv9kl1OvIEU";
             const publicKeyAsArray = urlB64ToUint8Array(appServerPublicKey)
@@ -108,19 +118,35 @@ const client = (() => {
                 })
                 .then(subscription => {
                     console.log(JSON.stringify(subscription, null, 4))
+                    subscribeWithServer(subscription)
                     disablePushNotificationButton();
                 })
                 .catch(error => console.error("Failed to subscribe to Push Service.", error))
+        }
+
+        const unsubscribeWithServer = (id) => {
+            return fetch('http://localhost:3000/removeSubscriber', {
+                method: 'POST',
+                body: JSON.stringify({ id }),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
         }
 
         const unSubscribeUser = () => {
             console.log("un-subscribing user")
             serviceWorkerRegObj.pushManager.getSubscription()
                 .then(subscription => {
-                    if (subscription) return subscription.unsubscribe()
+                    if (subscription) {
+                        let subAsString = JSON.stringify(subscription);
+                        let subAsObject = JSON.parse(subAsString)
+                        unsubscribeWithServer(subAsObject.keys.auth)
+                        return subscription.unsubscribe()
+                    }
                 })
                 .then(enablePushNotificationButton)
-                .catch(error => console.err("Failed to unsubscribe from Push Service.", error))
+                .catch(error => console.error("Failed to unsubscribe from Push Service.", error))
         }
 
         pushButton.addEventListener('click', () => {
