@@ -22,15 +22,25 @@ const options = {
     }
 };
 
-const notify = () => {
+const notify = (subscribers) => {
     const transaction = faker.helpers.createTransaction()
-    webPush.sendNotification(
-            pushSubscription,
-            JSON.stringify(transaction),
-            options
-        )
-        .then(() => console.log(`subscribers notified.`))
-        .catch(error => console.error('Error in pushing notification', error))
+
+    if (subscribers.size < 1) {
+        console.log("No subscribers to notify");
+        return;
+    }
+
+    subscribers.forEach((subscriber, id) => {
+        webPush.sendNotification(
+                subscriber,
+                JSON.stringify(transaction),
+                options
+            )
+            .then(() => console.log(`${subscribers.size} subscribers notified.`))
+            .catch(error => console.error('Error in pushing notification', error))
+    })
 }
 
-notify()
+module.exports = {
+    notify: notify
+}

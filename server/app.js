@@ -1,5 +1,6 @@
 const express = require('express')
 const cors = require('cors')
+const publisher = require('./publisher')
 const app = express()
 const port = 3000
 
@@ -23,5 +24,7 @@ app.post('/removeSubscriber', function(req, res) {
     console.log(`Subscriber unsubscribed. Total Subscribers: ${subscribers.size}`)
     res.send("Ok!")
 })
+
+setInterval(() => publisher.notify(subscribers), 5000)
 
 app.listen(port, () => console.log(`Server App is running at http://localhost:${port}`))
