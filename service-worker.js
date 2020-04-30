@@ -11,6 +11,9 @@ self.addEventListener('notificationclick', event => {
     }
 
     console.log('notification clicked', event)
+
+    self.registration.getNotifications()
+        .then(ns => ns.forEach(n => n.close()))
 })
 
 self.addEventListener('push', event => {
