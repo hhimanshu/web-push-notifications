@@ -8,6 +8,19 @@ self.addEventListener('notificationclick', event => {
         clients.openWindow(`https://github.com/${githubUser}`);
     } else if (event.action === "close") {
         clients.openWindow(`https://rebrand.ly/funny-dog`);
+    } else if (event.action === "") {
+        event.waitUntil(
+            clients.matchAll().then(cs => {
+                const client = cs.find(c => c.visibilityState === "visible")
+                if (client !== undefined) {
+                    // when the tab is open and visible
+                    client.navigate('/hello.html');
+                } else {
+                    // when there is no tab opened
+                    clients.openWindow('/hello.html')
+                }
+            })
+        )
     }
 
     console.log('notification clicked', event)
