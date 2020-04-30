@@ -2,11 +2,26 @@ const client = (() => {
     let serviceWorkerRegObj = undefined;
     const notificationButton = document.getElementById("btn-notify");
     const pushButton = document.getElementById("btn-push");
+    const pushNotification = document.getElementById("push-notification");
+
     let isUserSubscribed = false;
 
     const showNotificationButton = () => {
         notificationButton.style.display = "block";
         notificationButton.addEventListener("click", showNotification);
+    }
+
+    const notifyInApp = (transaction) => {
+        const html = `<div>
+            <div>Amount  :   <b>${transaction.amount}</b></div>
+            <div>Business: <b>${transaction.business}</b></div>
+            <div>Name    :  <b>${transaction.name}</b></div>
+            <div>Type    : <b>${transaction.type}</b></div>
+            <div>Account : <b>${transaction.account}</b></div>
+        </div>
+        `
+        pushNotification.style.display = "flex"
+        pushNotification.innerHTML = html
     }
 
     let count = 0
@@ -58,6 +73,8 @@ const client = (() => {
                         if (subs) disablePushNotificationButton()
                         else enablePushNotificationButton()
                     })
+
+                navigator.serviceWorker.addEventListener('message', e => notifyInApp(e.data))
             })
     }
 

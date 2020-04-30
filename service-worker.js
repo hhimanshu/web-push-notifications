@@ -25,6 +25,13 @@ self.addEventListener('push', event => {
     const transactionType = transaction.type === "deposit" ? '+' : '-';
 
     event.waitUntil(
-        self.registration.showNotification(`${transactionType} ` + transaction.amount, options)
+        clients.matchAll()
+        .then(cs => {
+            if (cs.length === 0) {
+                self.registration.showNotification(`${transactionType} ` + transaction.amount, options)
+            } else {
+                cs[0].postMessage(transaction)
+            }
+        })
     )
 })
