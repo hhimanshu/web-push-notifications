@@ -1,4 +1,5 @@
-html, body {
+html,
+body {
     margin: 0;
     padding: 0;
     font-family: 'Lato', sans-serif;
@@ -15,7 +16,8 @@ h1 {
 
 .app-bar {
     width: 100%;
-    background-color: #f4e04d;
+    background-color: #3caf9f;
+    color: #faf4f4;
 }
 
 .setup-complete {
@@ -39,9 +41,8 @@ button {
 }
 
 #btn-notify {
-    background-color: #844685;
+    background: linear-gradient(180deg, #379753, #379286);
     color: #ffffff;
-    padding: 1em;
     cursor: pointer;
     font-size: 1em;
     border-radius: 10px;

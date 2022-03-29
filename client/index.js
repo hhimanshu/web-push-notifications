@@ -10,28 +10,36 @@ const client = (() => {
     const showNotification = () => {
         const simpleTextNotification = reg => reg.showNotification("My First Notification")
 
+        navigator.serviceWorker.getRegistration()
+            .then(registration => simpleTextNotification(registration));
+
         const customizedNotification = reg => {
             const options = {
                 body: 'This is an important body!',
-                icon: "imgs/notification.png",
-                actions: [
-                    {action: "search", title: "Try Searching!"},
-                    {action: "close", title: "Forget it!"},
+                icon: "imgs/ventup_appicon.png",
+                actions: [{
+                        action: "search",
+                        title: "Try Searching!"
+                    },
+                    {
+                        action: "close",
+                        title: "Forget it!"
+                    },
                 ],
                 data: {
                     notificationTime: Date.now(),
-                    githubUser: "hhimanshu"
+                    githubUser: "poacosta"
                 }
             }
             reg.showNotification('Second Notification', options)
         }
-        
+
         navigator.serviceWorker.getRegistration()
-        .then(registration => customizedNotification(registration));
+            .then(registration => customizedNotification(registration));
     }
 
     const checkNotificationSupport = () => {
-        if(!('Notification' in window)) {
+        if (!('Notification' in window)) {
             return Promise.reject("The browser doesn't support notifications.")
         }
         console.log("The browser support Notifications!")
@@ -39,16 +47,16 @@ const client = (() => {
     }
 
     const registerServiceWorker = () => {
-        if(!('serviceWorker') in navigator) {
+        if (!('serviceWorker') in navigator) {
             return Promise.reject("ServiceWorker support is not available.")
         }
 
         return navigator.serviceWorker.register('service-worker.js')
-        .then(regObj => {
-            console.log("service worker is registered successfully!");
-            serviceWorkerRegObj = regObj;
-            showNotificationButton();
-        })
+            .then(regObj => {
+                console.log("Service worker is registered successfully!");
+                serviceWorkerRegObj = regObj;
+                showNotificationButton();
+            })
     }
 
     const requestNotificationPermissions = () => {
