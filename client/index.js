@@ -8,18 +8,18 @@ const client = (() => {
     }
 
     const showNotification = () => {
-        const simpleTextNotification = reg => reg.showNotification("My First Notification")
+        const simpleTextNotification = reg => reg.showNotification("This is simple but nice!")
 
         navigator.serviceWorker.getRegistration()
             .then(registration => simpleTextNotification(registration));
 
         const customizedNotification = reg => {
             const options = {
-                body: 'This is an important body!',
+                body: 'Wanna know me better?',
                 icon: "imgs/ventup_appicon.png",
                 actions: [{
                         action: "search",
-                        title: "Try Searching!"
+                        title: "Check my profile"
                     },
                     {
                         action: "close",
